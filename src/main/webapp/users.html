@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+table {
+	border: 1px solid #666;
+	width: 100%;
+}
+
+th {
+	background: #f8f8f8;
+	font-weight: bold;
+	padding: 2px;
+}
+
+td {
+	text-align: center
+}
+</style>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+      </script>
+<script type="text/javascript">
+$(document).ready(function() {
+	  $('#ocall').hide();
+$.ajax({
+    url: 'http://localhost:8080/RestDemo/webapi/users',
+    type: "get",
+    dataType: "json",
+    async: true,
+    headers: {
+        "Authorization": "Basic " + btoa("admin:admin_28")
+      },
+    success: function(data, textStatus, jqXHR) {
+        // since we are using jQuery, you don't need to parse response
+        drawTable(data);
+    }
+
+
+}
+);});
+
+function drawTable(data) {
+    for (var i = 0; i < data.length; i++) {
+        drawRow(data[i]);
+    }
+}
+
+function drawRow(rowData) {
+    var row = $("<tr />")
+    $("#personDataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+    row.append($("<td>" + rowData.userName + "</td>"));
+    row.append($("<td>" + rowData.name + "</td>"));
+    row.append($("<td>" + rowData.phone + "</td>"));
+    row.append($("<td>" + rowData.address + "</td>"));
+}
+</script>
+</head>
+<body>
+
+
+	<input type="button" value="Call" id="ocall">
+
+
+	<table id="personDataTable">
+		<tr>
+			<th>UserName</th>
+			<th>Name</th>
+			<th>Phone</th>
+			<th>Address</th>
+		</tr>
+
+	</table>
+
+</body>
+</html>

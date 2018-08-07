@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.PostgreSQL95Dialect
+		</property>
+
+		<property name="hibernate.connection.driver_class">
+			org.postgresql.Driver
+		</property>
+
+		<!-- Assume test is the database name -->
+
+		<!-- <property name="hibernate.connection.url">
+			jdbc:postgresql://$environment:49254/postgres
+		</property>
+
+		 <property name="hibernate.connection.username">
+			$username
+		</property>
+
+		<property name="hibernate.connection.password">
+			$password
+		</property>-->
+		<property name="hibernate.hbm2ddl.auto">
+			update
+		</property>
+		<property name="connection.pool_size">100</property>
+		<property name="show_sql">true</property>
+		<mapping class="com.ashwin.RestDemo.model.Car" />
+		<mapping class="com.ashwin.RestDemo.model.Person" />
+		<mapping class="com.ashwin.RestDemo.model.Deal" />
+		<mapping class="com.ashwin.RestDemo.model.UserAccess" />
+
+	</session-factory>
+</hibernate-configuration>

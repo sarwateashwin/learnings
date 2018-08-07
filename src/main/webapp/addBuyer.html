@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+
+</script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$("#reset").click(function() {
+					$("#userName").val("");
+					$("#phone").val("");
+					$("#address").val("");
+					$("#name").val("");
+				})
+				$("#test").click(
+						function() {
+							var data = '{"userName":"' + $("#userName").val()
+									+ '","phone":"' + $("#phone").val()
+									+ '","address":"' + $("#address").val()
+									+ '","name":"' + $("#name").val() + '"}'
+							//alert(data)
+
+							$.ajax({
+							 url: 'http://localhost:8080/RestDemo/webapi/users/addBuyer',
+							 type: "post",
+							 contentType: "application/json",
+							 async: true,
+							 headers: {
+							 "Authorization": "Basic " + btoa("admin:admin_28")
+							 },
+							 data: data,
+							 success: function(data, textStatus, jqXHR) {
+							 // since we are using jQuery, you don't need to parse response
+							 if(data.Error == "")
+							 alert("Buyer with userid: "+data.userId+" created with password: " + data.password)
+							 else
+								alert(data.Error)
+							 }
+
+							 })
+							//alert($('form').val());
+						})
+
+			});
+</script>
+</head>
+<body>
+	<form>
+		<table align = "center">
+			<tbody>
+			<tr>
+				<td>Username:</td>
+				<td><input type="text" name="userName" id="userName" /></td>
+
+			<tr>
+				<td>Phone:</td>
+				<td><input type="text" name="phone" id="phone" /></td>
+			</tr>
+			<tr>
+				<td>Name:</td>
+				<td><input type="text" name="name" id="name" /></td>
+			</tr>
+			<tr>
+				<td>Address:</td>
+				<td><input type="text" name="address" id="address" /></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Reset" id="reset" /></td>
+				<td><input type="button" value="Add Buyer" id="test"/></td>
+			</tr>
+		</tbody></table>
+	</form>
+</body>
+</html>
